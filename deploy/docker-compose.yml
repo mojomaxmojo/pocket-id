@@ -1,0 +1,16 @@
+# Produktions-Deployment: Pocket ID auf VPS (auth.mojobus.co)
+# Ziel-Pfad auf der VPS: /opt/pocketid/docker-compose.yml
+# Details: siehe VPS-SETUP.md
+
+services:
+  pocket-id:
+    image: docker.io/pocketid/pocket-id:v2
+    container_name: pocket-id
+    restart: always
+    ports:
+      - "127.0.0.1:3011:1411"   # Host 3011 (localhost-only), Container lauscht auf 1411
+    env_file: .env
+    volumes:
+      - /opt/pocketid/data:/app/data
+    mem_limit: 256m             # Rücksicht auf Remotion-Renders auf derselben Kiste
+    cpus: '0.3'
